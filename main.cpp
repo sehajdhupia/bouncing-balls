@@ -1,40 +1,40 @@
+#include "Ball.hpp"
+#include "Renderer.hpp"
+
 #include <GLFW/glfw3.h>
-#include <iostream>
+#include <vector>
+#include <chrono>
+#include <thread>
 
 int main() {
-    if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW\n";
-        return -1;
+    Renderer renderer(800, 600, "Bouncing Ball Simulator");
+    if (!renderer.init()) return -1;
+
+    std::vector<Ball> balls;
+    balls.emplace_back(400.0f, 100.0f);  // Initial position
+
+    float lastTime = glfwGetTime();
+
+    while (!renderer.shouldClose()) {
+        float currentTime = glfwGetTime();
+        float deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
+
+        // Physics update
+        for (auto& ball : balls) {
+            ball.update(deltaTime);       // 🔧 TODO: Apply gravity and velocity
+            ball.checkCollision(800, 600); // 🔧 TODO: Bounce off walls
+        }
+
+        renderer.beginFrame();
+        for (auto& ball : balls) {
+            renderer.draw(ball);          // 🔧 TODO: Draw a square for the ball
+        }
+        renderer.endFrame();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(16)); // cap to ~60fps
     }
 
-    // Setup OpenGL version (Core Profile)
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Required on macOS
-#endif
-
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Bouncing Ball Simulator", nullptr, nullptr);
-    if (!window) {
-        std::cerr << "Failed to create GLFW window\n";
-        glfwTerminate();
-        return -1;
-    }
-
-    glfwMakeContextCurrent(window);
-
-    // Main loop
-    while (!glfwWindowShouldClose(window)) {
-        glClearColor(0.1f, 0.2f, 0.3f, 1.0f);  // Dark blue-gray background
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-
-    glfwDestroyWindow(window);
-    glfwTerminate();
+    renderer.cleanup();
     return 0;
 }
