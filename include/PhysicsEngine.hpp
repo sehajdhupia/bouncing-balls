@@ -14,5 +14,5 @@ public:
 private:
     std::vector<Ball>& balls;
     std::atomic<bool> running;
-    int screenW, screenH
+    int screenW, screenH;
 };
