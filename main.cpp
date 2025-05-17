@@ -22,13 +22,13 @@ int main() {
 
         // Physics update
         for (auto& ball : balls) {
-            ball.update(deltaTime);       // 🔧 TODO: Apply gravity and velocity
-            ball.checkCollision(800, 600); // 🔧 TODO: Bounce off walls
+            ball.update(deltaTime);       //apply gravity and velocity
+            ball.checkCollision(800, 600); // bounce off walls
         }
 
         renderer.beginFrame();
         for (auto& ball : balls) {
-            renderer.draw(ball);          // 🔧 TODO: Draw a square for the ball
+            renderer.draw(ball);          // draw a square for the ball
         }
         renderer.endFrame();
 

@@ -5,8 +5,8 @@ class Ball {
 public:
     Ball(float x, float y);
 
-    void update(float dt);                        // 🔧 Apply gravity & update position
-    void checkCollision(int screenW, int screenH); // 🔧 Bounce off screen edges
+    void update(float dt);                        // gravity & update position
+    void checkCollision(int screenW, int screenH); // bounce off screen edges
 
     glm::vec2 getPosition() const;
     float getRadius() const;

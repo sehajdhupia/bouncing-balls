@@ -7,7 +7,7 @@ public:
     Renderer(int w, int h, const char* title);
     bool init();
     void beginFrame();
-    void draw(const Ball& ball);     // 🔧 Draw square at ball position
+    void draw(const Ball& ball);     // square at ball position
     void endFrame();
     void cleanup();
     bool shouldClose() const;
