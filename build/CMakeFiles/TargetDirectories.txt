@@ -1,3 +1,0 @@
-/Users/sehajdhupia/graphics-project/build/CMakeFiles/BouncingBallSim.dir
-/Users/sehajdhupia/graphics-project/build/CMakeFiles/edit_cache.dir
-/Users/sehajdhupia/graphics-project/build/CMakeFiles/rebuild_cache.dir
